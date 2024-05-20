@@ -15,7 +15,6 @@ import (
 
 const appID = "com.github.mintsoft.vlc"
 
-
 func builderGetObject(builder *gtk.Builder, name string) glib.IObject {
 	obj, _ := builder.GetObject(name)
 	return obj
@@ -52,7 +51,6 @@ func main() {
 				utils.AssertErr(err)
 				err = setPlayerWindow(player, playerWindow)
 				utils.AssertErr(err)
-				player.SetMouseInput(false)	//makes no difference
 			},
 			"onDrawPlayerArea": func(playerArea *gtk.DrawingArea, cr *cairo.Context) {
 				cr.SetSourceRGB(0, 0, 0)
@@ -68,16 +66,20 @@ func main() {
 				return false
 			},
 			/*
-			// this never triggers either
-			"playerArea_motion_notify_event_cb": func(entry *gtk.ApplicationWindow, event *gdk.Event) bool {
-				eventMotion := gdk.EventMotionNewFromEvent(event)
-				x, y := eventMotion.MotionVal()
-				fmt.Printf("PAMotionNotify x: %f y: %f\n", x, y)
-				return false
-			},
+				// this never triggers either
+				"playerArea_motion_notify_event_cb": func(entry *gtk.ApplicationWindow, event *gdk.Event) bool {
+					eventMotion := gdk.EventMotionNewFromEvent(event)
+					x, y := eventMotion.MotionVal()
+					fmt.Printf("PAMotionNotify x: %f y: %f\n", x, y)
+					return false
+				},
 			*/
 			"open_activate_cb": func() {
 				fmt.Println("open activate called")
+
+				player.SetMouseInput(false) //makes no difference
+				player.SetKeyInput(false)   //makes no difference
+
 				player.LoadMediaFromURL("https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm")
 				player.Play()
 			},
@@ -85,7 +87,7 @@ func main() {
 		builder.ConnectSignals(signals)
 		appWin.ShowAll()
 		app.AddWindow(appWin)
-		
+
 		//causes appWindow_motion_notify_event_cb to receive events no matter whereabouts in the window the cursor
 		//is located
 		appWin.AddEvents((int)(gdk.POINTER_MOTION_MASK))
