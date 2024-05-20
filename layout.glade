@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkApplicationWindow" id="appWindow">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="has-focus">True</property>
+    <property name="title" translatable="yes">Test</property>
+    <property name="window-position">center</property>
+    <property name="default-width">1280</property>
+    <property name="default-height">720</property>
+    <property name="icon-name">applications-multimedia</property>
+    <property name="type-hint">dialog</property>
+    <property name="has-resize-grip">True</property>
+    <signal name="button-press-event" handler="appWindow_button_press_event_cb" swapped="no"/>
+    <signal name="button-release-event" handler="appWindow_button_release_event_cb" swapped="no"/>
+    <signal name="key-press-event" handler="appWindow_key_press_event_cb" swapped="no"/>
+    <signal name="key-release-event" handler="appWindow_key_release_event_cb" swapped="no"/>
+    <signal name="motion-notify-event" handler="appWindow_motion_notify_event_cb" swapped="no"/>
+    <child>
+      <object class="GtkBox" id="windowBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="baseline-position">top</property>
+        <child>
+          <object class="GtkMenuBar" id="appMenu">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkMenuItem" id="fileMenuItem">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">File</property>
+                <property name="use-underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="fileMenu">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkMenuItem" id="open">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Open</property>
+                        <property name="use-underline">True</property>
+                        <signal name="activate" handler="open_activate_cb" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="quitMenuItem">
+                        <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="use-underline">True</property>
+                        <property name="use-stock">True</property>
+                        <property name="always-show-image">True</property>
+                        <signal name="activate" handler="onActivateQuit" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="playerArea">
+            <property name="sensitive">False</property>
+            <property name="can-focus">True</property>
+            <signal name="button-press-event" handler="playerArea_button_press_event_cb" swapped="no"/>
+            <signal name="button-release-event" handler="playerArea_button_release_event_cb" swapped="no"/>
+            <signal name="draw" handler="onDrawPlayerArea" swapped="no"/>
+            <signal name="realize" handler="onRealizePlayerArea" swapped="no"/>
+            <signal name="motion-notify-event" handler="playerArea_motion_notify_event_cb" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusBar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-start">10</property>
+            <property name="margin-end">10</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
