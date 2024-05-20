@@ -1,0 +1,3 @@
+=mouseoverVLC-goGTK=
+
+Attempting to get motion notify/mouse movement tracking working with goGTK3 + libvlc-go/v3 when media is playing.
