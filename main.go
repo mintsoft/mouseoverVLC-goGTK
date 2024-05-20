@@ -46,14 +46,13 @@ func main() {
 		appWin, ok := builderGetObject(builder, "appWindow").(*gtk.ApplicationWindow)
 		utils.AssertConv(ok)
 
-		// Add builder signal handlers.
 		signals := map[string]interface{}{
 			"onRealizePlayerArea": func(playerArea *gtk.DrawingArea) {
 				playerWindow, err := playerArea.GetWindow()
 				utils.AssertErr(err)
 				err = setPlayerWindow(player, playerWindow)
 				utils.AssertErr(err)
-				player.SetMouseInput(false)
+				player.SetMouseInput(false)	//makes no difference
 			},
 			"onDrawPlayerArea": func(playerArea *gtk.DrawingArea, cr *cairo.Context) {
 				cr.SetSourceRGB(0, 0, 0)
@@ -69,6 +68,7 @@ func main() {
 				return false
 			},
 			/*
+			// this never triggers either
 			"playerArea_motion_notify_event_cb": func(entry *gtk.ApplicationWindow, event *gdk.Event) bool {
 				eventMotion := gdk.EventMotionNewFromEvent(event)
 				x, y := eventMotion.MotionVal()
@@ -86,6 +86,8 @@ func main() {
 		appWin.ShowAll()
 		app.AddWindow(appWin)
 		
+		//causes appWindow_motion_notify_event_cb to receive events no matter whereabouts in the window the cursor
+		//is located
 		appWin.AddEvents((int)(gdk.POINTER_MOTION_MASK))
 	})
 
