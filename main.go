@@ -97,37 +97,6 @@ func main() {
 		player.Release()
 		vlc.Release()
 	})
-/*
-	go func() {
-		for {
-			pumpVlcMouseLocation(player)
-			time.Sleep(1000/60 * time.Millisecond)
-		}
-	}()
--*/
+
 	os.Exit(app.Run(os.Args))
-}
-
-var prevMouseX = 0 
-var prevMouseY = 0
-
-func pumpVlcMouseLocation(player *vlc.Player) {
-	if(player != nil) {
-		cursorLocationRelativeToVideoX,cursorLocationRelativeToVideoY,cursorError := player.CursorPosition()
-		dimsX, dimsY, videoDimensionError := player.VideoDimensions()
-
-		if cursorError != nil  || videoDimensionError != nil{
-			return
-		}
-
-		if(cursorLocationRelativeToVideoX >= 0 && cursorLocationRelativeToVideoY >= 0 && cursorLocationRelativeToVideoX <= int(dimsX) && cursorLocationRelativeToVideoY <= int(dimsY)) {
-			if(prevMouseX != cursorLocationRelativeToVideoX || prevMouseY != cursorLocationRelativeToVideoY) {
-				
-				fmt.Printf("pumpedMouseX: %d, pumped MouseY: %d\n", cursorLocationRelativeToVideoX, cursorLocationRelativeToVideoY)
-
-				prevMouseX = cursorLocationRelativeToVideoX
-				prevMouseY = cursorLocationRelativeToVideoY
-			}
-		}
-	}
 }
