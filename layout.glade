@@ -71,7 +71,7 @@
         </child>
         <child>
           <object class="GtkDrawingArea" id="playerArea">
-            <property name="sensitive">False</property>
+            <property name="sensitive">True</property>
             <property name="can-focus">True</property>
             <signal name="button-press-event" handler="playerArea_button_press_event_cb" swapped="no"/>
             <signal name="button-release-event" handler="playerArea_button_release_event_cb" swapped="no"/>

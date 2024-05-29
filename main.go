@@ -45,6 +45,10 @@ func main() {
 		appWin, ok := builderGetObject(builder, "appWindow").(*gtk.ApplicationWindow)
 		utils.AssertConv(ok)
 
+		playerArea, ok := builderGetObject(builder, "playerArea").(*gtk.DrawingArea)
+		utils.AssertConv(ok)
+		playerArea.AddEvents(int(gdk.POINTER_MOTION_MASK))
+
 		signals := map[string]interface{}{
 			"onRealizePlayerArea": func(playerArea *gtk.DrawingArea) {
 				playerWindow, err := playerArea.GetWindow()
@@ -65,20 +69,14 @@ func main() {
 				fmt.Printf("AWMotionNotify x: %f y: %f\n", x, y)
 				return false
 			},
-			/*
-				// this never triggers either
-				"playerArea_motion_notify_event_cb": func(entry *gtk.ApplicationWindow, event *gdk.Event) bool {
-					eventMotion := gdk.EventMotionNewFromEvent(event)
-					x, y := eventMotion.MotionVal()
-					fmt.Printf("PAMotionNotify x: %f y: %f\n", x, y)
-					return false
-				},
-			*/
+			"playerArea_motion_notify_event_cb": func(entry *gtk.DrawingArea, event *gdk.Event) bool {
+				return false
+			},
 			"open_activate_cb": func() {
 				fmt.Println("open activate called")
 
-				player.SetMouseInput(false) //makes no difference
-				player.SetKeyInput(false)   //makes no difference
+				player.SetMouseInput(true) //makes no difference
+				player.SetKeyInput(true)   //makes no difference
 
 				player.LoadMediaFromURL("https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm")
 				player.Play()
